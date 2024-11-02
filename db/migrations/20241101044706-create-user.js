@@ -7,8 +7,8 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.BIGINT,
-      },
+        type: Sequelize.INTEGER,
+      }, 
       first_name: {
         allowNull: false,
         type: Sequelize.STRING(256),

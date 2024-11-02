@@ -3,6 +3,7 @@ const environment = process.env.NODE_ENV;
 const User = require("../../../db/models/user");
 const Errors = require("../../../util/Errors");
 const Utility = require("../../../util/utility");
+const UserType = require("../../../db/models/userType")
 
 module.exports = {
   getUser: async (req, res) => {
@@ -10,6 +11,13 @@ module.exports = {
       const id = req.params.id;
 
       const checkUser = await User.findOne({
+        include: [
+          {
+            model: UserType,
+            as: "userTypeId",
+            attributes: ["id", "identifier", "text"],
+          },
+        ],
         where: { id: id },
       });
 
@@ -27,6 +35,7 @@ module.exports = {
           email: checkUser.email || null,
           mobileNumber: checkUser.mobileNumber || null,
           votersIdNumber: checkUser.votersIdNumber || null,
+          userType: checkUser.userTypeId || []
         },
       });
     } catch (error) {
@@ -38,6 +47,7 @@ module.exports = {
   createUser: async (req, res) => {
     try {
       const {
+        userType,
         firstName,
         middleName,
         lastName,
@@ -48,6 +58,7 @@ module.exports = {
       } = req.body;
 
       const missingFields = Utility.validateRequiredFields({
+        userType,
         firstName,
         middleName,
         lastName,
@@ -74,6 +85,7 @@ module.exports = {
       }
 
       await User.create({
+        userType,
         firstName,
         middleName,
         lastName,

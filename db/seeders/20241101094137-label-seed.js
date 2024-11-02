@@ -3,6 +3,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    // Truncate the table and reset identity before inserting
+    await queryInterface.sequelize.query('TRUNCATE TABLE "label" RESTART IDENTITY CASCADE');
     await queryInterface.bulkInsert("label", [
       {
         type: "missionText",
@@ -18,9 +20,11 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("label", {
-      identifier: ["HOME", "ABOUT_US"],
+    // Bulk delete and reset identity
+    await queryInterface.bulkDelete("label", null, {
+      truncate: true,
+      cascade: true,
+      restartIdentity: true
     });
   },
 };
-

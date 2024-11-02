@@ -3,6 +3,13 @@
 const errorHandler = {
   get: (tag) => {
     const errors = {
+      NO_DATA_FOUND: {
+        status: 400,
+        error: {
+          code: "F",
+          message: "No data found.",
+        },
+      },
       NOT_FOUND: {
         status: 400,
         error: {

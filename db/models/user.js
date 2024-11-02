@@ -2,6 +2,7 @@
 const { Model, Sequelize } = require("sequelize");
 const sequelize = require("../../config/database");
 const useBcrypt = require("sequelize-bcrypt");
+const UserTypeTable = require("./userType")
 
 
 const User = sequelize.define(
@@ -11,7 +12,7 @@ const User = sequelize.define(
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT,
+      type: Sequelize.INTEGER,
     },
     firstName: {
       allowNull: false,
@@ -39,7 +40,10 @@ const User = sequelize.define(
       allowNull: false,
       type: Sequelize.STRING(256),
     },
-    
+    userType: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+    },
   },
   {
     underscored: true,
@@ -56,6 +60,12 @@ const hashPassword = {
 };
 
 useBcrypt(User, hashPassword);
+
+User.belongsTo(UserTypeTable, {
+  foreignKey: "userType", 
+  as:"userTypeId"
+});
+
  
 
 module.exports = User;

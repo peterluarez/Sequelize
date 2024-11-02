@@ -3,19 +3,15 @@ const { Model, Sequelize } = require("sequelize");
 const sequelize = require("../../config/database"); 
 
 
-const Label = sequelize.define(
-  "label",
+const UserType = sequelize.define(
+  "userType",
   {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
-    },
-    type: {
-      allowNull: false,
-      type: Sequelize.STRING(256),
-    },
+    }, 
     identifier: {
       allowNull: true,
       type: Sequelize.STRING(256),
@@ -29,9 +25,9 @@ const Label = sequelize.define(
     underscored: true,
     timestamps: false,
     freezeTableName: true,
-    modelName: "label",
+    modelName: "userType",
   }
 );
  
 
-module.exports = Label;
+module.exports = UserType;
