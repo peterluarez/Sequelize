@@ -15,15 +15,21 @@
     "chalk": "^4.1.2",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-fileupload": "^1.5.1",
     "express-list-endpoints": "^7.1.0",
+    "express-rate-limit": "^7.5.0",
     "fs": "^0.0.1-security",
     "generate-schema": "^2.6.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "require-dir": "^1.2.0",
     "sequelize": "^6.37.5",
-    "sequelize-bcrypt": "^1.2.0"
+    "sequelize-bcrypt": "^1.2.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

@@ -1,0 +1,144 @@
+swagger: "2.0"
+info:
+  title: Voting API Documentation
+  description: API documentation
+  version: 1.0.0
+host: localhost:8080/
+basePath: voting
+schemes:
+  - http
+paths:
+  /api/v1/status:
+    get:
+      tags:
+        - Connection
+      summary: database connection
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+  /api/v1/user:
+    post:
+      tags:
+        - User / Options
+      summary: create user
+      parameters:  
+        - name: request-body
+          in: body
+          description: This endpoint allows you to create user.
+          required: true
+          schema:
+            type: object
+            properties:
+              userType: 
+                type: number
+                example: 1
+              firstName:
+                type: string
+                example: string
+              middleName:
+                type: string
+                example: string
+              lastName:
+                type: string
+                example: string
+              email:
+                type: string
+                example: string
+              mobileNumber:
+                type: string
+                example: string
+              votersIdNumber:
+                type: string
+                example: string
+              password:
+                type: "string"
+                example: "string"
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+  /api/v1/user/auth/sign-in:
+    post:
+      tags:
+        - User / Sign-in
+      summary: sign-in
+      parameters:  
+        - name: request-body
+          in: body
+          description: This endpoint allows you to sign in with username and password.
+          required: true
+          schema:
+            type: object
+            properties:
+              votersIdNumber:
+                type: string
+                example: string
+              password:
+                type: "string"
+                example: "string"
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+  /api/v1/user/{votersIdNumber}:
+    get:
+      tags:
+        - User / Library
+      summary: get user details
+      parameters:  
+        - name: votersIdNumber
+          in: parameter
+          description: This endpoint allows you to show details of a user.
+          required: true 
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+  /api/v1/user/:
+    get:
+      tags:
+        - User / Library
+      summary: get all user details
+      parameters:   
+        - name: page
+          in: query
+          required: true
+          description: page
+          type: number
+        - name: size
+          in: query
+          required: true
+          description: size
+          type: number
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+  /api/v1/label/:
+    get:
+      tags:
+        - Library
+      summary: get all label
+      parameters:   
+        - name: page
+          in: query
+          required: true
+          description: page
+          type: number
+        - name: size
+          in: query
+          required: true
+          description: size
+          type: number
+      responses:
+        200:
+          description: Success database connection
+        500:
+          description: Something went wrong
+   

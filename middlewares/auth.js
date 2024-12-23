@@ -1,7 +1,6 @@
 "use strict";
 
-const rekuire = require("rekuire");
-const Errors = rekuire("Errors");
+const Errors = require("../util/Errors");
 const expressFileUpload = require("express-fileupload");
 const rateLimit = require("express-rate-limit");
 
@@ -30,9 +29,8 @@ const Auth = {
       }
       next();
     } catch (e) {
-      let errors = Errors.raise("UNAUTHORIZED_ACCESS");
-      errors.error.details = e.message || {};
-      res.error(errors);
+      const errors = Errors.raise("UNAUTHORIZED_CLIENT_ID_SECRET");
+      return res.status(errors.status).json(errors);
     }
   },
   validateToken: (req, res, next) => {
@@ -40,7 +38,8 @@ const Auth = {
 
     try {
       if (!authHeader) {
-        throw new Error("Authorization header is missing.");
+        const errors = Errors.raise("MISSING_TOKEN_FIELD");
+        return res.status(errors.status).json(errors);
       }
 
       if (authHeader.startsWith("Bearer ")) {
@@ -50,18 +49,17 @@ const Auth = {
       req.token = authHeader;
       next();
     } catch (e) {
-      let errors = Errors.raise("UNAUTHORIZED_ACCESS");
-      errors.error.details = e.message || {};
-      res.error(errors);
+      const errors = Errors.raise("UNAUTHORIZED_ACCESS");
+      return res.status(errors.status).json(errors);
     }
   },
   forgotPasswordLimiter: rateLimit({
-    windowMs: 5 * 60 * 1000, 
+    windowMs: 5 * 60 * 1000,
     max: 3,
     message: Errors.get("INVALID_REQUEST_MAXED_OUT"),
   }),
   emailSendOtpLimiter: rateLimit({
-    windowMs: 5 * 60 * 1000, 
+    windowMs: 5 * 60 * 1000,
     max: 3,
     message: Errors.get("INVALID_REQUEST_MAXED_OUT"),
   }),

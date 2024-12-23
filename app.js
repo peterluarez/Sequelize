@@ -6,6 +6,10 @@ const listEndpoints = require("express-list-endpoints");
 const app = express();
 const router = require("./routes/index");
 const chalk = require("chalk");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./voting-swagger.yaml"); 
+app.use("/voting-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
 
 // api logger
 app.use(morgan("combined")); 

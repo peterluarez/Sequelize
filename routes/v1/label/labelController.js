@@ -31,11 +31,12 @@ module.exports = {
       }
       const totalPage = Math.ceil(fetchData.count / size);
       res.status(200).json({
-        status: "Success",
+        message: "Success",
         data: fetchData.rows,
         page: page,
-        size: size,
-        totalPage: totalPage,
+        size: size, 
+        total: fetchData.count,
+        pages: totalPage,
       });
     } catch (error) {
       res.status(500).json({ error: error.message });
