@@ -22,6 +22,8 @@
       - [Example Response](#example-response-2)
       - [Get all user details](#get-all-user-details)
       - [Example Response](#example-response-3)
+      - [Get all labels](#get-all-labels)
+      - [Example Response](#example-response-4)
 
 # Overview
 
@@ -202,5 +204,30 @@
     "size": 1,
     "total": 3,
     "pages": 3
+}
+```
+#### Get all labels
+
+| Method | URL                        |
+| ------ | -------------------------- |
+| Get   | /label/?{page}&{size}&{search} | 
+
+#### Example Response
+
+```json
+{
+    "message": "Success",
+    "data": [
+        {
+            "id": 1,
+            "type": "missionText",
+            "identifier": "HOME",
+            "text": "Home"
+        }
+    ],
+    "page": 1,
+    "size": 1,
+    "total": 2,
+    "pages": 2
 }
 ```
